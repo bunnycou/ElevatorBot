@@ -35,6 +35,13 @@ namespace ElevatorBot
         {
             string[] musicType = { "kevin", "ben", "portal" };
 
+            Choice = Choice.ToLower();
+            if (!musicType.Any(x => Choice.Contains(x)))
+            {
+                await ctx.RespondAsync($"Please pick a music type, choices are: `Kevin` (MacLeod), `Ben`(Sounds), and `Portal` Radio");
+                return;
+            }
+
             var vnext = ctx.Client.GetVoiceNext();
             var vnc = vnext.GetConnection(ctx.Guild);
             if (vnext == null)
@@ -58,12 +65,6 @@ namespace ElevatorBot
 
             if (channel == null)
                 channel = vstat.Channel;
-
-            Choice = Choice.ToLower();
-            if (!musicType.Any(x => Choice.Contains(x))) {
-                await ctx.RespondAsync($"Please pick a music type, choices are: `Kevin` (MacLeod), `Ben`(Sounds), and `Portal` Radio");
-                return;
-            }
 
             vnc = await vnext.ConnectAsync(channel);
             // await ctx.RespondAsync($"Connected to `{channel.Name}");
