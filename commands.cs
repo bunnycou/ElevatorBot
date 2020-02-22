@@ -31,14 +31,14 @@ namespace ElevatorBot
         [Command("connect")]
         [Description("Play elevator music")]
         [Aliases("join", "start", "play")]
-        public async Task Start(CommandContext ctx, string Choice, DiscordChannel channel = null)
+        public async Task Start(CommandContext ctx, string Choice = "null", DiscordChannel channel = null)
         {
             string[] musicType = { "kevin", "ben", "portal" };
 
             Choice = Choice.ToLower();
             if (!musicType.Any(x => Choice.Contains(x)))
             {
-                await ctx.RespondAsync($"Please pick a music type, choices are: `Kevin` (MacLeod), `Ben`(Sounds), and `Portal` Radio");
+                await ctx.RespondAsync($"Please pick an elevator music type, choices are: `Kevin` (MacLeod), `Ben`(Sounds), and `Portal` Radio");
                 return;
             }
 

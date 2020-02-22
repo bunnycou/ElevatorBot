@@ -70,6 +70,16 @@ namespace ElevatorBot
             }
         }
 
+        public async Task botStatusAsync(ReadyEventArgs e)
+        {
+            DiscordActivity activity = new DiscordActivity
+            {
+                ActivityType = ActivityType.Playing,
+                Name = "/eb start",
+            };
+            await this.bot.UpdateStatusAsync(activity);
+        }
+
         public async Task startBotAsync()
         {
             //load json
@@ -99,6 +109,7 @@ namespace ElevatorBot
             this.bot = new DiscordClient(config);
 
             this.bot.Ready += this.botReady;
+            this.bot.Ready += this.botStatusAsync;
             this.bot.GuildAvailable += this.botGuildAvailable;
             this.bot.ClientErrored += this.botErrorHandler;
 
